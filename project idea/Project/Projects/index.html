@@ -1,0 +1,167 @@
+ <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>yatri.in</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <a href="#"><img src ="./images/IMG-20241116-WA0044.jpg" alt="Travel Website Logo" /></a>
+        
+      </div>
+      <nav class="nav-menu">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#destinations">Destinations</a></li>
+          <li><a href="#hotels">Hotels</a></li>
+          <li><a href="#Tourist guide">Touristguide</a></li>
+          <li><a href="#food">food</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-image">
+          <img src="images/hero.jpg" alt="Beautiful travel destination" />
+        </div>
+        <div class="hero-content">
+          <h1>Yatri Kirpiya Dhyan DE</h1>
+           <div class="search-container">
+            <input type="text" id="destination" name="destination" placeholder="Enter your destination..." required />
+            <button type="submit" id="searchButton">Search</button>
+          </div>
+
+          <p>Discover amazing destinations and search your next trip with us.</p>
+
+        </div>
+      </section>
+
+      <section id="destinations" class="destinations">
+        <h2>Popular Destinations</h2>
+        <div class="destination-grid">
+          <div class="destination-item">
+            <img src="./images/mysore.jpg" alt="mysore" />
+            <h3>Mysore</h3>
+            
+          </div>
+          <div class="destination-item">
+            <img src="./images/taj-mahal-agra-india-TAJ0217-9eab8f20d11d4391901867ed1ce222b8.jpg" alt="agra" />
+            <h3>Taj mahal</h3>
+           
+          </div>
+          <div class="destination-item">
+            <img src="./images/rohtang-pass-manali-himachal-pradesh-260nw-2429103757.jpg" alt="Manali" />
+            <h3>Manali</h3>
+           
+          </div>
+        </div>
+      </section>
+
+      <section id="hotels" class="hotels">
+        <h2>Featured Hotels</h2>
+        <div class="destination-grid">
+          <div class="destination-item">
+            <img src="images/hotel-1.jpg" alt="The Ritz Carlton Hotel" />
+            <h3>The Ritz Carlton</h3>
+            <p>
+              Experience luxury accommodations and impeccable service at The Ritz Carlton, located in the heart of the city.
+            </p>
+          </div>
+          <div class="destination-item">
+            <img src="images/hotel-2.jpg" alt="The Four Seasons Hotel" />
+            <h3>The Four Seasons</h3>
+            <p>
+              Relax in style at The Four Seasons, featuring breathtaking views, an award-winning spa, and gourmet dining options.
+            </p>
+          </div>
+          <div class="destination-item">
+            <img src="images/hotel-3.jpg" alt="The Waldorf Astoria Hotel" />
+            <h3>The Waldorf Astoria</h3>
+            <p>
+              Indulge in luxury at The Waldorf Astoria, a historic landmark hotel renowned for its elegance and sophistication.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="Tourist guide" class="Tourist guide">
+        <h2>Tourist guide</h2>
+        <div class="destination-grid">
+          <div class="destination-item">
+            <img src="./images/TypesOfTourGuides2_1703360225.jpg" alt="guide" />
+            <h3>People with the guide</h3>
+            
+          </div>
+          <div class="destination-item">
+            <img src="./images/shot-young-female-tour-guide-leading-her-group-walking-tour-created-with-generative-ai_762026-49920.jpg" alt="Spa at The Four Seasons" />
+            <h3>tourist guide</h3>
+            
+          </div>
+          <div class="destination-item">
+            <img src="./images/360_F_525990766_OKktXosEFG9McFRUNxHgpEYaundbL4N8.jpg" alt="Explore The Waldorf Astoria" />
+            <h3>explore with your guide</h3>
+            
+          </div>
+        </div>
+      </section>
+      <footer>
+        <div class="social-icons">
+          <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p>&copy; 2024 Your Travel Website. All Rights Reserved.</p>
+      </footer>
+    </main>
+    <script src="script.js"></script>
+    <script>
+         document.getElementById("searchButton").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent form submission
+    
+    const destination = document.getElementById("destination").value.trim();
+    
+    // Ensure the destination input is not empty
+    if (destination !== "") {
+      // API key for Foursquare (replace 'YOUR_API_KEY' with your actual key)
+      const apiKey = 'fsq3O6LjtBuY5EWEoZq0WtbtvzAjy6DJ9/jnkbzsI9TB1wk=';
+      
+      // Foursquare API endpoint (for places to visit)
+      const url = `https://api.foursquare.com/v3/places/search?query=${encodeURIComponent(destination)}&near=${encodeURIComponent(destination)}&limit=10`;
+      
+      // Make an API request to Foursquare
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': apiKey
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Redirect to a new page with search results
+        const results = data.results; // This will contain the destination details
+        
+        // Store the results in localStorage to access on the next page
+        localStorage.setItem("searchResults", JSON.stringify(results));
+        
+        // Redirect to the results page
+        window.location.href = 'search-results.html';
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        alert('Error fetching destination details. Please try again.');
+      });
+    } else {
+      alert("Please enter a destination!");
+    }
+  });
+    </script>
+  </body>
+  </html>
+
+  </body>
+  
+</html>
