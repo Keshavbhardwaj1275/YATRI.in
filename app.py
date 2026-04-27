@@ -11,7 +11,7 @@ users = {
 
 @app.route("/")
 def home():
-    return "Welcome! Please log in at /login"
+    return redirect(url_for("login"))
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
