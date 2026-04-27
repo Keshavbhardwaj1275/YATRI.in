@@ -50,3 +50,4 @@ YATRI.in/
 │── templates/
 │── static/
 │── README.md
+│── requirements.txt
